@@ -1,0 +1,1 @@
+PhoneListApp is a refactoring of a PhoneList project from https://bitbucket.org/ne_tru/phonelist-c-suite
