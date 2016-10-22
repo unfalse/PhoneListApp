@@ -1,0 +1,28 @@
+﻿a {
+    text-decoration: none;
+}
+
+table#abonents_table {
+  border:0px;
+  border-spacing: 0px;
+  width: 100%;
+  background-color:white;
+}
+
+table#abonents_table tr{
+    border:0px;
+}
+
+table#abonents_table td{
+    border: 1px lightgray solid;
+    padding: 3px;
+}
+
+table#abonents_table tr>td{
+    font-size: 9pt;
+    font-family: Arial;
+}
+
+table#abonents_table tr.tr_data:hover{
+    background-color:lightgreen;
+}
