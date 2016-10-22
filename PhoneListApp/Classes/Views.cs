@@ -19,17 +19,16 @@ namespace PhoneListApp.Classes
         // сортировка, на которую столбец переключится (столбец, направление)
         protected Dictionary<string, string> sortView = new Dictionary<string, string>();
 
-        private string GetDirSymbol(string dir)
+        public Views()
         {
-            if (dir == "asc")
-            {
-                return "&darr;";
-            }
-            if (dir == "desc")
-            {
-                return "&uarr;";
-            }
-            return string.Empty;
+            _data = new DataRepository();
+            _data.SetSortQueryParameters("ID", "asc");
+        }
+
+        public string GetSearchPageMarkup()
+        {
+            string result = string.Empty;
+            return result;
         }
 
         public void SetSortParameters(string sortDir, string sortCol)
@@ -38,66 +37,34 @@ namespace PhoneListApp.Classes
             SortDirection = sortDir;
         }
 
-        public Views()
+        public string GetPage()
         {
-            _data = new DataRepository();
-            _data.SetSortQueryParameters("ID", "asc");
-        }
-
-        private string GetTableHead()
-        {
-            string result = String.Empty;
-            string[][] tableCols = new string[6][];
-            tableCols[0] = new string[2] { "id", "ID" };
-            tableCols[1] = new string[2] { "fio", "ФИО" };
-            tableCols[2] = new string[2] { "birthday", "Дата рождения" };
-            tableCols[3] = new string[2] { "age", "Возраст" };
-            tableCols[4] = new string[2] { "education", "Образование" };
-            tableCols[5] = new string[2] { "address", "Адрес" };
-
-            result += "<tr>";
-
-            for (int th = 0; th < tableCols.Length; th++)
-            {
-                string col = tableCols[th][0];
-                string name = tableCols[th][1];
-                string dir = "desc";
-                string dirArrow = "";
-                if (col == SortColumn)
-                {
-                    dir = SortDirection=="asc" ? "desc" : "asc";
-                    dirArrow = GetDirSymbol(dir);
-                }
-                
-                result += string.Format("<td><a href=\"?col={0}&dir={1}\">{2} {3}</a></td>", col, dir, name, dirArrow);
-            }
-            result += "</tr>";
-
+            string result = GetPaginationArrows();
+            result += GetSearchLink();
+            result += GetAbonentsTable();
             return result;
         }
 
-        private int GetAge(Abonent abonent)
+        private string GetSearchLink()
         {
-            return DateTime.Now.Year - abonent.Birthday_date.Year;
-        }
-
-        protected string GetEduLevel(Abonent abonent)
-        {
-            Education e = _data.EducationLevels.Find(item => item.id == abonent.Education);
-            return e.Level;
-        }
-
-        public string GetPage()
-        {
-            string result = GetPaginationArrows() + GetAbonentsTable();
+            string result = string.Empty;
+            result = "<br><a href=\"Search.aspx\">Search</a>";
             return result;
         }
 
         private string GetPaginationArrows()
         {
-            string back = "<br><a href=\"?p={0}\">&lt;&lt;</a>";
-            string forward = "&nbsp;<a href=\"?p={0}\">&gt;&gt;</a><br>";
-            string result = string.Format(back, CurrentPage - 1) + string.Format(forward, CurrentPage + 1);
+            int rowsCount = _data.GetMaximumRows();
+            string back = "<br><a href=\"{0}\">&lt;&lt;</a>";
+            string forward = "&nbsp;<a href=\"{0}\">&gt;&gt;</a><br>";
+            string backDisabled = "&lt;&lt;";
+            string forwardDisabled = "&nbsp;&gt;&gt;";
+            string result = (CurrentPage - 1)>=0 ? 
+                string.Format(back, BuildGetParameters(SortColumn,SortDirection, CurrentPage - 1)) :
+                backDisabled;
+            result += (CurrentPage + 1)<=rowsCount ? 
+                string.Format(forward, BuildGetParameters(SortColumn, SortDirection, CurrentPage + 1)) :
+                forwardDisabled;
             return result;
         }
 
@@ -132,6 +99,70 @@ namespace PhoneListApp.Classes
             }
 
             return result;
+        }
+
+        private int GetAge(Abonent abonent)
+        {
+            return DateTime.Now.Year - abonent.Birthday_date.Year;
+        }
+
+        protected string GetEduLevel(Abonent abonent)
+        {
+            Education e = _data.EducationLevels.Find(item => item.id == abonent.Education);
+            return e.Level;
+        }
+
+        private string GetTableHead()
+        {
+            string result = String.Empty;
+            string[][] tableCols = new string[6][];
+            tableCols[0] = new string[2] { "id", "ID" };
+            tableCols[1] = new string[2] { "fio", "ФИО" };
+            tableCols[2] = new string[2] { "birthday", "Дата рождения" };
+            tableCols[3] = new string[2] { "age", "Возраст" };
+            tableCols[4] = new string[2] { "education", "Образование" };
+            tableCols[5] = new string[2] { "address", "Адрес" };
+
+            result += "<tr>";
+
+            for (int th = 0; th < tableCols.Length; th++)
+            {
+                string col = tableCols[th][0];
+                string name = tableCols[th][1];
+                string dir = "desc";
+                string dirArrow = string.Empty;
+                string href = string.Empty;
+                if (col == SortColumn)
+                {
+                    dir = SortDirection == "asc" ? "desc" : "asc";
+                    dirArrow = GetDirSymbol(dir);
+                }
+
+                href = BuildGetParameters(col, dir, CurrentPage);
+
+                result += string.Format("<td><a href=\"{0}\">{1} {2}</a></td>", href, name, dirArrow);
+            }
+            result += "</tr>";
+
+            return result;
+        }
+
+        private string BuildGetParameters(string col, string dir, int pageNum)
+        {
+            return string.Format("?col={0}&dir={1}&p={2}", col, dir, pageNum.ToString());
+        }
+
+        private string GetDirSymbol(string dir)
+        {
+            if (dir == "asc")
+            {
+                return "&darr;";
+            }
+            if (dir == "desc")
+            {
+                return "&uarr;";
+            }
+            return string.Empty;
         }
     }
 }

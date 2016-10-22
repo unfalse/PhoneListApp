@@ -9,7 +9,7 @@ namespace PhoneListApp
         {
             Views view = new Views();
             SetColAndDirFromGETParam(view);
-            // TODO: complete the pagination support - markup and code behind
+            // TODO: complete the pagination support - goto start and goto end
             SetPaginationFromGETParam();
 
             string htmlOutput = view.GetPage();
@@ -25,7 +25,6 @@ namespace PhoneListApp
 
         private void SetPaginationFromGETParam()
         {
-            // TODO: rewrite to support validation
             string reqPage = Request.QueryString["p"] ?? "0";
             int pageNum = int.TryParse(reqPage, out pageNum) ? pageNum : 0;
             Views.CurrentPage = pageNum;

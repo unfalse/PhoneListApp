@@ -26,11 +26,15 @@ namespace PhoneListApp.Classes
 
         private string _educationQuery = @"select * from EducationLevels";
         private string _abonentsQuery = @"select * from Abonents as a";
+        private string _abonentsRowsCount = @"select count(id) RowsCount from Abonents";
         private string _contactTypes = @"select * from ContactTypes";
+        // TODO: write search templates for every field or make it in another way
+        private string _searchTemplate = @" where {0}";
         private string _sortQueryTemplate = @" order by a.{0} {1}";
         private string _paginateTemplate = @" offset {0} rows fetch next {1} rows only"; // "offset" is a keyword since MS SQL 2012
         private string _contactsQueryTemplate = @"select * from Contacts where AbonentId in ({0})";
         private string _contactsNestedAbonentsQuery = @"select id from Abonents as a";
+        
         private string _resultAbonentQuery = string.Empty;
         private string _contactsQuery = string.Empty;
         private string _paginateQuery = string.Empty;
@@ -40,6 +44,8 @@ namespace PhoneListApp.Classes
         {
             _connectionString = ConfigurationManager.ConnectionStrings[CONNECTION_STRING_NAME].ConnectionString;
         }
+
+        //public void 
 
         public void SetSortQueryParameters(string sortDir, string sortCol)
         {
@@ -55,6 +61,24 @@ namespace PhoneListApp.Classes
         {
             int startFromRow = currentPage * ROWS_ON_PAGE;
             _paginateQuery = string.Format(_paginateTemplate, startFromRow, ROWS_ON_PAGE);
+        }
+
+        public int GetMaximumRows()
+        {
+            int rowsCount = -1;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(_abonentsRowsCount, connection);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        rowsCount = reader.GetFieldValue<int>(0);
+                    }
+                }
+            }
+            return rowsCount;
         }
 
         public void FillEducationLevelsList()
