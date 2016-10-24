@@ -37,6 +37,55 @@ namespace PhoneListApp.Classes
             SortDirection = sortDir;
         }
 
+        private void AddNewSearchField(object fieldValue, string SQLfield, List<string> searchFields)
+        {
+            string res = string.Empty;
+            if (fieldValue.GetType().Equals(typeof(int)))
+            {
+                int val = (int)fieldValue;
+                if (val != -1)
+                {
+                    res = SQLfield + "=\"" + val.ToString() + "\"";
+                }
+            }
+
+            if (fieldValue.GetType().Equals(typeof(string)))
+            {
+                string val = (string)fieldValue;
+                if (val != string.Empty)
+                {
+                    res = SQLfield + "=\"" + val + "\"";
+                }
+            }
+
+            if (res != string.Empty) {
+                searchFields.Add(res);
+            }
+        }
+
+        public void SetSearchQuery(SearchAbonent sp)
+        {
+            List<string> searchFields = new List<string>();
+            string resultQuery = " where";
+
+            AddNewSearchField(sp.id, "id", searchFields);
+            AddNewSearchField(sp.FIO, "fio", searchFields);
+            //AddNewSearchField(sp.Birthday_date, "Birthday", searchFields);
+            AddNewSearchField(sp.Passport_series, "Passport_series", searchFields);
+            AddNewSearchField(sp.INN, "INN", searchFields);
+            AddNewSearchField(sp.Work, "Work", searchFields);
+            AddNewSearchField(sp.Education, "Education", searchFields);
+            AddNewSearchField(sp.Address, "Address", searchFields);
+            AddNewSearchField(sp.Sex, "Sex", searchFields);
+
+            foreach(string sf in searchFields)
+            {
+                resultQuery += " " + sf + " " + sp.UnionOperation;
+            }
+            resultQuery = resultQuery.Remove(resultQuery.Length - sp.UnionOperation.Length);
+            string res = resultQuery;
+        }
+
         public string GetPage()
         {
             string result = GetPaginationArrows();

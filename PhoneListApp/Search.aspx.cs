@@ -20,14 +20,24 @@ namespace PhoneListApp
 
         private void SubmitSearch_Click(object sender, EventArgs e)
         {
-            string id = TextBoxID.Text;
-            if (id != string.Empty)
-            {
+            SearchAbonent abonent = new SearchAbonent();
+            abonent.id = int.TryParse(tbID.Text, out abonent.id) ? abonent.id : -1;
+            abonent.FIO = tbFIO.Text;
+            //abonent.Birthday_date
+            abonent.Passport_series = tbPassport.Text;
+            abonent.INN = tbINN.Text;
+            abonent.Work = tbWork.Text;
+            abonent.Education = int.Parse(ddlEducation.SelectedValue);
+            abonent.Address = tbAddress.Text;
+            abonent.Sex = ddlSex.SelectedValue;
+            abonent.UnionOperation = "or";
+
                 // TODO: call the search method and display results
-                Views view = new Views();
-                string htmlOutput = view.GetPage();
-                Response.Write(htmlOutput);
-            }
+            Views view = new Views();
+            view.SetSearchQuery(abonent);
+
+            string htmlOutput = view.GetPage();
+            Response.Write(htmlOutput);
         }
     }
 }

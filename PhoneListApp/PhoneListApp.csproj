@@ -79,6 +79,7 @@
     <Content Include="Index.aspx" />
     <Content Include="Search.aspx" />
     <Content Include="styles\index.css" />
+    <Content Include="styles\search.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

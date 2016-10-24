@@ -19,4 +19,9 @@ namespace PhoneListApp.Classes
         public string Sex;
         public List<Contact> Contacts;
     }
+
+    public class SearchAbonent : Abonent
+    {
+        public string UnionOperation;
+    }
 }
