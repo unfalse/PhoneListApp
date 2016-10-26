@@ -11,10 +11,11 @@
     Work: <asp:TextBox ID="tbWork" runat="server"></asp:TextBox><br />
 
     Education: <asp:DropDownList ID="ddlEducation" runat="server">
-        <asp:ListItem Selected="True" Value="1">Начальное</asp:ListItem>
+        <asp:ListItem Value="1">Начальное</asp:ListItem>
         <asp:ListItem Value="2">Среднее</asp:ListItem>
         <asp:ListItem Value="3">Высшее</asp:ListItem>
         <asp:ListItem Value="4">Доктор наук</asp:ListItem>
+        <asp:ListItem Selected="True" Value="-1">Не выбрано</asp:ListItem>
     </asp:DropDownList><br />
 
     Address: <asp:TextBox ID="tbAddress" runat="server"></asp:TextBox><br />
@@ -22,6 +23,7 @@
     Sex: <asp:DropDownList ID="ddlSex" runat="server">
         <asp:ListItem Value="M">Мужской</asp:ListItem>
         <asp:ListItem Value="F">Женский</asp:ListItem>
+        <asp:ListItem Selected="True" Value="N">Не выбрано</asp:ListItem>
     </asp:DropDownList>
 
     <br />

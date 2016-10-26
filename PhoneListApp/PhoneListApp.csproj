@@ -80,6 +80,7 @@
     <Content Include="Search.aspx" />
     <Content Include="styles\index.css" />
     <Content Include="styles\search.css" />
+    <Content Include="ViewAbonent.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -111,6 +112,13 @@
     </Compile>
     <Compile Include="Search.aspx.designer.cs">
       <DependentUpon>Search.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAbonent.aspx.cs">
+      <DependentUpon>ViewAbonent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAbonent.aspx.designer.cs">
+      <DependentUpon>ViewAbonent.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />

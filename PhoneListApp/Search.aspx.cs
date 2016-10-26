@@ -29,10 +29,10 @@ namespace PhoneListApp
             abonent.Work = tbWork.Text;
             abonent.Education = int.Parse(ddlEducation.SelectedValue);
             abonent.Address = tbAddress.Text;
-            abonent.Sex = ddlSex.SelectedValue;
+            abonent.Sex = ddlSex.SelectedValue!="N" ? ddlSex.SelectedValue : string.Empty;
             abonent.UnionOperation = "or";
 
-                // TODO: call the search method and display results
+            // TODO: call the search method and display results
             Views view = new Views();
             view.SetSearchQuery(abonent);
 

@@ -39,13 +39,17 @@ namespace PhoneListApp.Classes
         private string _contactsQuery = string.Empty;
         private string _paginateQuery = string.Empty;
         private string _sortQuery = string.Empty;
+        private string _searchQuery = string.Empty;
 
         public DataRepository()
         {
             _connectionString = ConfigurationManager.ConnectionStrings[CONNECTION_STRING_NAME].ConnectionString;
         }
 
-        //public void 
+        public void SetSearchQuery(string rightPartOfQuery)
+        {
+            _searchQuery = _abonentsQuery + string.Format(_searchTemplate, rightPartOfQuery);
+        }
 
         public void SetSortQueryParameters(string sortDir, string sortCol)
         {
@@ -110,7 +114,14 @@ namespace PhoneListApp.Classes
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                _resultAbonentQuery = _abonentsQuery + _sortQuery + _paginateQuery;
+                if (_searchQuery != string.Empty)
+                {
+                    _resultAbonentQuery = _searchQuery;
+                }
+                else
+                {
+                    _resultAbonentQuery = _abonentsQuery + _sortQuery + _paginateQuery;
+                }
 
                 SqlCommand cmd = new SqlCommand(_resultAbonentQuery, connection);
                 using (SqlDataReader reader = cmd.ExecuteReader())

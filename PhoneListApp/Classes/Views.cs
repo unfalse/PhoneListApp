@@ -45,7 +45,7 @@ namespace PhoneListApp.Classes
                 int val = (int)fieldValue;
                 if (val != -1)
                 {
-                    res = SQLfield + "=\"" + val.ToString() + "\"";
+                    res = SQLfield + "='" + val.ToString() + "'";
                 }
             }
 
@@ -54,7 +54,7 @@ namespace PhoneListApp.Classes
                 string val = (string)fieldValue;
                 if (val != string.Empty)
                 {
-                    res = SQLfield + "=\"" + val + "\"";
+                    res = SQLfield + "='" + val + "'";
                 }
             }
 
@@ -66,7 +66,7 @@ namespace PhoneListApp.Classes
         public void SetSearchQuery(SearchAbonent sp)
         {
             List<string> searchFields = new List<string>();
-            string resultQuery = " where";
+            string resultQuery = string.Empty;
 
             AddNewSearchField(sp.id, "id", searchFields);
             AddNewSearchField(sp.FIO, "fio", searchFields);
@@ -82,8 +82,12 @@ namespace PhoneListApp.Classes
             {
                 resultQuery += " " + sf + " " + sp.UnionOperation;
             }
-            resultQuery = resultQuery.Remove(resultQuery.Length - sp.UnionOperation.Length);
-            string res = resultQuery;
+
+            if (resultQuery != string.Empty)
+            {
+                resultQuery = resultQuery.Remove(resultQuery.Length - sp.UnionOperation.Length);
+                _data.SetSearchQuery(resultQuery);
+            }
         }
 
         public string GetPage()
@@ -148,6 +152,11 @@ namespace PhoneListApp.Classes
             }
 
             return result;
+        }
+
+        public string GetAbonentPage()
+        {
+            return string.Empty;
         }
 
         private int GetAge(Abonent abonent)
