@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace PhoneListApp
 {
-    public partial class Search : System.Web.UI.Page
+    public partial class Search : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,7 +37,8 @@ namespace PhoneListApp
             view.SetSearchQuery(abonent);
 
             string htmlOutput = view.GetPage();
-            Response.Write(htmlOutput);
+            PutMarkupInContentPlaceHolder(htmlOutput);
+            //Response.Write(htmlOutput);
         }
     }
 }

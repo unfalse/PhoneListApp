@@ -1,9 +1,11 @@
 ﻿using PhoneListApp.Classes;
 using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace PhoneListApp
 {
-    public partial class Index1 : System.Web.UI.Page
+    public partial class Index1 : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -13,22 +15,8 @@ namespace PhoneListApp
             SetPaginationFromGETParam();
 
             string htmlOutput = view.GetPage();
-            Response.Write(htmlOutput);
+            PutMarkupInContentPlaceHolder(htmlOutput);
+            //Response.Write(htmlOutput);
         }
-
-        private void SetColAndDirFromGETParam(Views view)
-        {
-            string sortCol = Request.QueryString["col"] ?? "ID";
-            string sortDir = Request.QueryString["dir"] ?? "asc";
-            view.SetSortParameters(sortDir, sortCol);
-        }
-
-        private void SetPaginationFromGETParam()
-        {
-            string reqPage = Request.QueryString["p"] ?? "0";
-            int pageNum = int.TryParse(reqPage, out pageNum) ? pageNum : 0;
-            Views.CurrentPage = pageNum;
-        }
-
     }
 }

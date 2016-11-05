@@ -10,7 +10,7 @@
 namespace PhoneListApp {
     
     
-    public partial class ViewAbonent {
+    public partial class EditAbonent {
         
         /// <summary>
         /// lbID control.
@@ -22,75 +22,84 @@ namespace PhoneListApp {
         protected global::System.Web.UI.WebControls.Label lbID;
         
         /// <summary>
-        /// lbFIO control.
+        /// tbFIO control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbFIO;
+        protected global::System.Web.UI.WebControls.TextBox tbFIO;
         
         /// <summary>
-        /// lbBirthday control.
+        /// tbBirthday control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbBirthday;
+        protected global::System.Web.UI.WebControls.TextBox tbBirthday;
         
         /// <summary>
-        /// lbPassport control.
+        /// tbPassport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbPassport;
+        protected global::System.Web.UI.WebControls.TextBox tbPassport;
         
         /// <summary>
-        /// lbINN control.
+        /// tbINN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbINN;
+        protected global::System.Web.UI.WebControls.TextBox tbINN;
         
         /// <summary>
-        /// lbWork control.
+        /// tbWork control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbWork;
+        protected global::System.Web.UI.WebControls.TextBox tbWork;
         
         /// <summary>
-        /// lbEducation control.
+        /// ddlEducation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbEducation;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEducation;
         
         /// <summary>
-        /// lbAddress control.
+        /// tbAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbAddress;
+        protected global::System.Web.UI.WebControls.TextBox tbAddress;
         
         /// <summary>
-        /// lbSex control.
+        /// ddlSex control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbSex;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSex;
+        
+        /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
     }
 }

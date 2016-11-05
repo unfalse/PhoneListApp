@@ -1,9 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Index.Master" AutoEventWireup="true" CodeBehind="Search.aspx.cs" Inherits="PhoneListApp.Search" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Index.Master" AutoEventWireup="true" CodeBehind="EditAbonent.aspx.cs" Inherits="PhoneListApp.EditAbonent" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="styles/search.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    ID: <asp:TextBox ID="tbID" runat="server"></asp:TextBox><br />
+    ID: <asp:Label ID="lbID" runat="server"></asp:Label><br />
     ФИО: <asp:TextBox ID="tbFIO" runat="server"></asp:TextBox><br />
     День рождения: <asp:TextBox ID="tbBirthday" runat="server"></asp:TextBox><br />
     Паспорт(номер и серия): <asp:TextBox ID="tbPassport" runat="server"></asp:TextBox><br />
@@ -24,8 +23,12 @@
         <asp:ListItem Value="M">Мужской</asp:ListItem>
         <asp:ListItem Value="F">Женский</asp:ListItem>
         <asp:ListItem Selected="True" Value="N">Не выбрано</asp:ListItem>
-    </asp:DropDownList>
+    </asp:DropDownList><br />
 
     <br />
-    <asp:Button ID="SubmitSearch" runat="server" Text="Search it" />
+    <asp:Button id="btnSave" Text="Сохранить" runat="server" /><br />
+    <a href="EditAbonent.aspx?id=<%=lbID.Text%>&remove=true">Удалить</a><br />
+    
+    <br />
+    <a href="Index.aspx">Вернуться</a>
 </asp:Content>

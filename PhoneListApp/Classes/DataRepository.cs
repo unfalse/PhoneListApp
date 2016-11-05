@@ -16,15 +16,21 @@ namespace PhoneListApp.Classes
     {
         private const string CONNECTION_STRING_NAME = "PhoneListDBConnectionString";
 
+        // Для таблицы абонентов
         public List<Abonent> Abonents { get { return _abonents; } }
         public List<Education> EducationLevels { get { return _educationLevels; } }
 
         private List<Abonent> _abonents = new List<Abonent>();
         private List<Education> _educationLevels = new List<Education>();
 
+        // Для страницы просмотра информации об абоненте
+        public Abonent AbonentInfo { get { return _abonentInfo; } }
+        private Abonent _abonentInfo;
+
         private string _connectionString;
 
         private string _educationQuery = @"select * from EducationLevels";
+        private string _abonentByIdQuery = @"select * from Abonents where id={0}";
         private string _abonentsQuery = @"select * from Abonents as a";
         private string _abonentsRowsCount = @"select count(id) RowsCount from Abonents";
         private string _contactTypes = @"select * from ContactTypes";
@@ -106,6 +112,38 @@ namespace PhoneListApp.Classes
                     }
                 }
             }
+        }
+
+        public void GetAbonentById(int id)
+        {
+            Abonent abonent = null;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string resultQuery = string.Format(_abonentByIdQuery, id.ToString());
+                SqlCommand cmd = new SqlCommand(resultQuery, connection);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        int rowId = reader.GetFieldValue<Int32>(0);
+                        abonent = new Abonent();
+                        abonent.id = reader.GetFieldValue<Int32>(0);
+                        abonent.FIO = reader.GetFieldValue<String>(1);
+                        abonent.Birthday_date = reader.GetFieldValue<DateTime>(2);
+                        abonent.Passport_series = reader.GetFieldValue<String>(3);
+                        abonent.INN = reader.GetFieldValue<String>(4);
+                        abonent.Work = reader.GetFieldValue<String>(5);
+                        abonent.Education = reader.GetFieldValue<Int32>(6);
+                        abonent.Address = reader.IsDBNull(7) ? String.Empty : reader.GetFieldValue<String>(7);
+                        abonent.Sex = reader.GetFieldValue<String>(8);
+                        abonent.Photo = reader.IsDBNull(9) ? String.Empty : reader.GetFieldValue<String>(9);
+                        abonent.Contacts = null;
+                    }
+                }
+            }
+            _abonentInfo = abonent;
         }
 
         public void FillAbonentsList()

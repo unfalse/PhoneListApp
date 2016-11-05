@@ -12,6 +12,9 @@ namespace PhoneListApp.Classes
         static public string SortColumn;
         static public string SortDirection;
         static public int CurrentPage;
+        // Для страницы просмотра абонента
+        static public int abonentId;
+        static public Abonent abonentInfo;
         private DataRepository _data;
 
         // текущая сортировка столбца (столбец, направление)
@@ -90,6 +93,7 @@ namespace PhoneListApp.Classes
             }
         }
 
+        // Возвращает полную разметку для страницы с таблицей абонентов
         public string GetPage()
         {
             string result = GetPaginationArrows();
@@ -121,9 +125,11 @@ namespace PhoneListApp.Classes
             return result;
         }
 
+        // Получает данные и возвращает разметку таблицы абонентов
         public string GetAbonentsTable()
         {
             string result = String.Empty;
+            string trOnClick = "onclick=\"location.href='ViewAbonent.aspx?id={0}'\"";
             _data.SetSortQueryParameters(SortDirection, SortColumn);
             _data.SetPaginationQueryParameters(CurrentPage, ROWS_ON_PAGE);
 
@@ -142,21 +148,36 @@ namespace PhoneListApp.Classes
             result += GetTableHead();
             foreach (var abonent in _data.Abonents)
             {
-                result += "<tr class=\"tr_data\">";
+                result += "<tr class=\"tr_data\"";
+                result += " " + string.Format(trOnClick, abonent.id.ToString()) + ">";
                 result += string.Format("<td>{0}</td>", abonent.id.ToString());
                 result += string.Format("<td>{0}</td>", abonent.FIO.ToString());
                 result += string.Format("<td>{0}</td>", abonent.Birthday_date.ToShortDateString());
                 result += string.Format("<td>{0}</td>", GetAge(abonent));
                 result += string.Format("<td>{0}</td>", GetEduLevel(abonent));
                 result += string.Format("<td>{0}</td>", abonent.Address);
+                result += "</tr>";
             }
 
             return result;
         }
 
+        // Возвращает полную разметку страницы с информацией об абоненте
         public string GetAbonentPage()
         {
+            // TODO: блок контактов и фото
+
             return string.Empty;
+        }
+
+        // Собирает данные об абоненте
+        public void GetAbonentInfo()
+        {
+            string result = string.Empty;
+            // TODO: возвращать сообщение об ошибке, если id=-1
+            _data.GetAbonentById(abonentId);
+            _data.FillEducationLevelsList();
+            abonentInfo = _data.AbonentInfo;
         }
 
         private int GetAge(Abonent abonent)
@@ -164,7 +185,7 @@ namespace PhoneListApp.Classes
             return DateTime.Now.Year - abonent.Birthday_date.Year;
         }
 
-        protected string GetEduLevel(Abonent abonent)
+        public string GetEduLevel(Abonent abonent)
         {
             Education e = _data.EducationLevels.Find(item => item.id == abonent.Education);
             return e.Level;

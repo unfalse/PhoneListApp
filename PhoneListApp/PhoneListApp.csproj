@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EditAbonent.aspx" />
     <Content Include="packages.config" />
     <Content Include="Index.Master" />
     <None Include="Web.Debug.config">
@@ -87,10 +88,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Abonent.cs" />
+    <Compile Include="Classes\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Classes\Contact.cs" />
     <Compile Include="Classes\DataRepository.cs" />
     <Compile Include="Classes\Education.cs" />
     <Compile Include="Classes\Views.cs" />
+    <Compile Include="EditAbonent.aspx.cs">
+      <DependentUpon>EditAbonent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditAbonent.aspx.designer.cs">
+      <DependentUpon>EditAbonent.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
