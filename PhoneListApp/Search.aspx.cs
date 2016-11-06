@@ -14,8 +14,10 @@ namespace PhoneListApp
         {
             // TODO: write code to display the search markup
             // TODO: create methods in Views
-
-            btnSubmitSearch.Click += SubmitSearch_Click;
+            if (IsPostBack)
+            {
+                btnSubmitSearch.Click += SubmitSearch_Click;
+            }
         }
 
         private void SubmitSearch_Click(object sender, EventArgs e)

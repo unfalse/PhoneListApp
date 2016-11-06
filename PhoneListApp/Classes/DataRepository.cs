@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 
 namespace PhoneListApp.Classes
@@ -154,6 +155,7 @@ namespace PhoneListApp.Classes
         public int UpdateAbonentById(Abonent abonent)
         {
             int updatedRows = 0;
+            string culture = "ru-RU";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -161,7 +163,10 @@ namespace PhoneListApp.Classes
                 {
                     command.Parameters.AddWithValue("@aId", abonent.id);
                     command.Parameters.AddWithValue("@aFIO", abonent.FIO);
-                    command.Parameters.AddWithValue("@aBirthday", abonent.Birthday_date.ToShortDateString());
+                    command.Parameters.AddWithValue("@aBirthday",
+                        abonent.Birthday_date.ToString(
+                            CultureInfo.CreateSpecificCulture(culture).DateTimeFormat.ShortDatePattern,
+                            new CultureInfo(culture)));
                     command.Parameters.AddWithValue("@aPassport", abonent.Passport_series);
                     command.Parameters.AddWithValue("@aINN", abonent.INN);
                     command.Parameters.AddWithValue("@aWork", abonent.Work);

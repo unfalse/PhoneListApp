@@ -13,23 +13,33 @@ namespace PhoneListApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (SetIdFromGETParam())
+            if (!IsPostBack)
             {
-                view.GetAbonentInfo();
-                SetControlsValues();
-                btnSave.Click += BtnSave_Click;
+                if (SetIdFromGETParam())
+                {
+                    view.GetAbonentInfo();
+                    SetControlsValues();
+                }
+                else
+                {
+                    PutMarkupInContentPlaceHolder("Пользователь не найден.");
+                }
             }
             else
             {
-                PutMarkupInContentPlaceHolder("Пользователь не найден.");
+                btnSave.Click += BtnSave_Click;
             }
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
+            // TODO: вынести culture в константы
+            string culture = "ru-RU";
             Abonent editAbonent = new Abonent();
+            editAbonent.id = int.Parse(lbID.Text);
             editAbonent.FIO = tbFIO.Text;
-            editAbonent.Birthday_date = DateTime.Parse(tbBirthday.Text, new CultureInfo("en-US"));
+            editAbonent.Birthday_date = 
+                DateTime.Parse(tbBirthday.Text, new CultureInfo(culture));
             editAbonent.Passport_series = tbPassport.Text;
             editAbonent.INN = tbINN.Text;
             editAbonent.Work = tbWork.Text;
@@ -42,16 +52,22 @@ namespace PhoneListApp
 
         private void SetControlsValues()
         {
+            string culture = "ru-RU";
             Abonent abonent = Views.abonentInfo;
             lbID.Text = abonent.id.ToString();
             tbFIO.Text = abonent.FIO;
-            tbBirthday.Text = abonent.Birthday_date.ToString(new CultureInfo("en-US"));
+            tbBirthday.Text = 
+                abonent.Birthday_date.ToString(
+                    CultureInfo.CreateSpecificCulture(culture).DateTimeFormat.ShortDatePattern, 
+                    new CultureInfo(culture));
             tbPassport.Text = abonent.Passport_series;
             tbINN.Text = abonent.INN;
             tbWork.Text = abonent.Work;
-            ddlEducation.SelectedIndex = abonent.Education;
+            ddlEducation.SelectedValue = abonent.Education.ToString();
             tbAddress.Text = abonent.Address;
             ddlSex.SelectedValue = abonent.Sex;
+            hlEditLink.NavigateUrl = "EditAbonent.aspx?id="
+                + abonent.id.ToString() + "&remove=true";
         }
     }
 }

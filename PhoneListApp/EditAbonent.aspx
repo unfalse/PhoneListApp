@@ -27,7 +27,7 @@
 
     <br />
     <asp:Button id="btnSave" Text="Сохранить" runat="server" /><br />
-    <a href="EditAbonent.aspx?id=<%=lbID.Text%>&remove=true">Удалить</a><br />
+    <asp:HyperLink ID="hlEditLink" runat="server">Удалить</asp:HyperLink>
 </asp:Content>
 
 <asp:Content ID="FooterContent" ContentPlaceHolderID="FooterContentPlaceHolder" runat="server">
