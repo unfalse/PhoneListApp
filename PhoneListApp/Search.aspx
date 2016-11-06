@@ -27,5 +27,10 @@
     </asp:DropDownList>
 
     <br />
-    <asp:Button ID="SubmitSearch" runat="server" Text="Search it" />
+    <asp:Button ID="btnSubmitSearch" runat="server" Text="Search it" />
+</asp:Content>
+
+<asp:Content ID="FooterContent" ContentPlaceHolderID="FooterContentPlaceHolder" runat="server">
+    <br />
+    <a href="Index.aspx">Вернуться</a>
 </asp:Content>

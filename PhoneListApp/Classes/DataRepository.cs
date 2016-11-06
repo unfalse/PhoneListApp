@@ -31,6 +31,11 @@ namespace PhoneListApp.Classes
 
         private string _educationQuery = @"select * from EducationLevels";
         private string _abonentByIdQuery = @"select * from Abonents where id={0}";
+        private string _abonentUpdateByIdQuery = @"update Abonents set FIO = @aFIO," +
+            " Birthday = @aBirthday, Passport_series = @aPassport, INN = @aINN, Work = @aWork,"+
+            " Education = @aEducation, Address = @aAddress, Sex = @aSex"+
+            //", Photo_filename = @aPhoto"
+            " where id = @aId";
         private string _abonentsQuery = @"select * from Abonents as a";
         private string _abonentsRowsCount = @"select count(id) RowsCount from Abonents";
         private string _contactTypes = @"select * from ContactTypes";
@@ -144,6 +149,30 @@ namespace PhoneListApp.Classes
                 }
             }
             _abonentInfo = abonent;
+        }
+
+        public int UpdateAbonentById(Abonent abonent)
+        {
+            int updatedRows = 0;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(_abonentUpdateByIdQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@aId", abonent.id);
+                    command.Parameters.AddWithValue("@aFIO", abonent.FIO);
+                    command.Parameters.AddWithValue("@aBirthday", abonent.Birthday_date.ToShortDateString());
+                    command.Parameters.AddWithValue("@aPassport", abonent.Passport_series);
+                    command.Parameters.AddWithValue("@aINN", abonent.INN);
+                    command.Parameters.AddWithValue("@aWork", abonent.Work);
+                    command.Parameters.AddWithValue("@aEducation", abonent.Education);
+                    command.Parameters.AddWithValue("@aAddress", abonent.Address);
+                    command.Parameters.AddWithValue("@aSex", abonent.Sex);
+                    //command.Parameters.AddWithValue("@aPhoto", abonent.Photo);
+                    updatedRows = command.ExecuteNonQuery();
+                }
+            }
+            return updatedRows;
         }
 
         public void FillAbonentsList()

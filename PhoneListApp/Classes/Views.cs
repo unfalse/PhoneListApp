@@ -34,6 +34,24 @@ namespace PhoneListApp.Classes
             return result;
         }
 
+        public string UpdateAbonent(Abonent abonent)
+        {
+            int res = _data.UpdateAbonentById(abonent);
+            if (res == 1)
+            {
+                return "Абонент был обновлен.";
+            }
+            if (res > 1)
+            {
+                return "Обновились несколько абонентов: что-то пошло не так!";
+            }
+            if (res < 1)
+            {
+                return "Ошибка обновления абонента!";
+            }
+            return "Неизвестный код возврата!";
+        }
+
         public void SetSortParameters(string sortDir, string sortCol)
         {
             SortColumn = sortCol;

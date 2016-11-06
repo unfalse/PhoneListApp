@@ -17,6 +17,9 @@
         
         </asp:ContentPlaceHolder>
     </div>
+        <asp:ContentPlaceHolder ID="FooterContentPlaceHolder" runat="server">
+        
+        </asp:ContentPlaceHolder>
     </form>
 </body>
 </html>

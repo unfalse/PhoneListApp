@@ -20,8 +20,7 @@ namespace PhoneListApp
             }
             else
             {
-                Response.Write("Пользователь не найден.");
-                Response.End();
+                PutMarkupInContentPlaceHolder("Пользователь не найден.");
             }
         }
 

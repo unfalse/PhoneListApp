@@ -9,6 +9,13 @@ namespace PhoneListApp.Classes
 {
     public class BasePage : System.Web.UI.Page
     {
+        protected Views view;
+
+        public BasePage()
+        {
+            view = new Views();
+        }
+
         protected void PutMarkupInContentPlaceHolder(string markup)
         {
             ContentPlaceHolder c = Page.Master.FindControl("ContentPlaceHolder1") as ContentPlaceHolder;
@@ -16,6 +23,8 @@ namespace PhoneListApp.Classes
             {
                 LiteralControl l = new LiteralControl();
                 l.Text = markup;
+                // TODO: исправить ошибку, когда на целевой странице есть код
+                // в <% %>
                 c.Controls.Add(l);
             }
         }

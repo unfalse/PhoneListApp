@@ -94,12 +94,12 @@ namespace PhoneListApp {
         protected global::System.Web.UI.WebControls.DropDownList ddlSex;
         
         /// <summary>
-        /// SubmitSearch control.
+        /// btnSubmitSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SubmitSearch;
+        protected global::System.Web.UI.WebControls.Button btnSubmitSearch;
     }
 }

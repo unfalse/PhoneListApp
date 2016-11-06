@@ -15,7 +15,7 @@ namespace PhoneListApp
             // TODO: write code to display the search markup
             // TODO: create methods in Views
 
-            SubmitSearch.Click += SubmitSearch_Click;
+            btnSubmitSearch.Click += SubmitSearch_Click;
         }
 
         private void SubmitSearch_Click(object sender, EventArgs e)
