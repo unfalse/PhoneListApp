@@ -2,17 +2,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    ID: <asp:Label ID="lbID" runat="server"></asp:Label><br />
-    ФИО: <asp:Label ID="lbFIO" runat="server"></asp:Label><br />
-    День рождения: <asp:Label ID="lbBirthday" runat="server"></asp:Label><br />
-    Паспорт(номер и серия): <asp:Label ID="lbPassport" runat="server"></asp:Label><br />
-    ИНН: <asp:Label ID="lbINN" runat="server"></asp:Label><br />
-    Работа: <asp:Label ID="lbWork" runat="server"></asp:Label><br />
 
-    Образование: <asp:Label ID="lbEducation" runat="server"></asp:Label><br />
-    Адрес: <asp:Label ID="lbAddress" runat="server"></asp:Label><br />
-
-    Пол: <asp:Label ID="lbSex" runat="server"></asp:Label><br />
+    <div class="leftblock">ID:</div><div><asp:Label ID="lbID" runat="server"></asp:Label></div>
+    <div class="leftblock">ФИО:</div><div><asp:Label ID="lbFIO" runat="server"></asp:Label></div>
+    <div class="leftblock">День рождения:</div><div><asp:Label ID="lbBirthday" runat="server"></asp:Label></div>
+    <div class="leftblock">Паспорт(номер и серия):</div><div><asp:Label ID="lbPassport" runat="server"></asp:Label></div>
+    <div class="leftblock">ИНН:</div><div><asp:Label ID="lbINN" runat="server"></asp:Label></div>
+    <div class="leftblock">Работа:</div><div><asp:Label ID="lbWork" runat="server"></asp:Label></div>
+    <div class="leftblock">Образование:</div><div><asp:Label ID="lbEducation" runat="server"></asp:Label></div>
+    <div class="leftblock">Адрес:</div><div><asp:Label ID="lbAddress" runat="server"></asp:Label></div>
+    <div class="leftblock">Пол:</div><div><asp:Label ID="lbSex" runat="server"></asp:Label></div>
 
     <br />
     <a href="EditAbonent.aspx?id=<%=lbID.Text%>">Редактировать</a><br />

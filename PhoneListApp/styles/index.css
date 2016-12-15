@@ -26,3 +26,8 @@ table#abonents_table tr>td{
 table#abonents_table tr.tr_data:hover{
     background-color:lightgreen;
 }
+
+.leftblock {
+    float: left;
+    width: 300px;
+}

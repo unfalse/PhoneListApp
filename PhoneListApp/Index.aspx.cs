@@ -16,7 +16,6 @@ namespace PhoneListApp
 
             string htmlOutput = view.GetPage();
             PutMarkupInContentPlaceHolder(htmlOutput);
-            //Response.Write(htmlOutput);
         }
     }
 }

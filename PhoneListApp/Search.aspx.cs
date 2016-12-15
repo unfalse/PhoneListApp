@@ -1,10 +1,5 @@
 ﻿using PhoneListApp.Classes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace PhoneListApp
 {
@@ -23,7 +18,8 @@ namespace PhoneListApp
         private void SubmitSearch_Click(object sender, EventArgs e)
         {
             SearchAbonent abonent = new SearchAbonent();
-            abonent.id = int.TryParse(tbID.Text, out abonent.id) ? abonent.id : -1;
+            int outId = 0;
+            abonent.id = int.TryParse(tbID.Text, out outId) ? outId : -1;
             abonent.FIO = tbFIO.Text;
             //abonent.Birthday_date
             abonent.Passport_series = tbPassport.Text;
